@@ -1,4 +1,4 @@
-#ssh_tools
+#ssh_tools（支持远程命令，和远程拷贝文件夹）
 
 通过其他py引用ssh_tools.py:
 ```

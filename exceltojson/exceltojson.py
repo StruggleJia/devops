@@ -6,31 +6,13 @@
 import json
 from openpyxl import load_workbook
 
-
-
-COLOR_INDEX = (
-    '00000000', '00FFFFFF', '00FF0000', '0000FF00', '000000FF', #0-4
-    '00FFFF00', '00FF00FF', '0000FFFF', '00000000', '00FFFFFF', #5-9
-    '00FF0000', '0000FF00', '000000FF', '00FFFF00', '00FF00FF', #10-14
-    '0000FFFF', '00800000', '00008000', '00000080', '00808000', #15-19
-    '00800080', '00008080', '00C0C0C0', '00808080', '009999FF', #20-24
-    '00993366', '00FFFFCC', '00CCFFFF', '00660066', '00FF8080', #25-29
-    '000066CC', '00CCCCFF', '00000080', '00FF00FF', '00FFFF00', #30-34
-    '0000FFFF', '00800080', '00800000', '00008080', '000000FF', #35-39
-    '0000CCFF', '00CCFFFF', '00CCFFCC', '00FFFF99', '0099CCFF', #40-44
-    '00FF99CC', '00CC99FF', '00FFCC99', '003366FF', '0033CCCC', #45-49
-    '0099CC00', '00FFCC00', '00FF9900', '00FF6600', '00666699', #50-54
-    '00969696', '00003366', '00339966', '00003300', '00333300', #55-59
-    '00993300', '00993366', '00333399', '00333333', 'System Foreground', 'System Background' #60-64
-)
-
 class ExcelToJson(object):
     def __init__(self, filename):
         self.filename = filename
         self.workfile = load_workbook(self.filename)
         self.sheet = None
         self.cellstatus = {}
-        self.allinfo = {}
+        self.allinfo = []
     
     def get_sheet_name(self):
         return self.workfile.get_sheet_names()
@@ -62,9 +44,10 @@ class ExcelToJson(object):
                         rack = cell.value
                         v = cell.comment.text
                         info['status'] = status
-                        info['rack'] = rack
-                        info['comment'] = v.replace("\n", " ")
-                        self.allinfo[zb] = info
+                        info['code'] = rack
+                        info['description'] = v.replace("\n", " ")
+                        info['meta'] = zb
+                        self.allinfo.append(info)
             return self.allinfo
 
 if __name__ == "__main__":

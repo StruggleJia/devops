@@ -59,11 +59,9 @@ class ImageToHtmlArea(object):
         loc = np.where( res >= self.threshold)
         for pt in zip(*loc[::-1]):
             getstrinfo = self.__getstr(pt)
-            a = getstrinfo[2]
-            print(a.isdigit())
             if getstrinfo[0:4] not in self.dictinfo: # and getstrinfo[2].isdigit():
                 self.dictinfo[getstrinfo[0:4]] = pt
-        print(self.dictinfo)
+        #print(self.dictinfo)
     
     def gethotarea(self):
         for k, v in self.dictinfo.items():

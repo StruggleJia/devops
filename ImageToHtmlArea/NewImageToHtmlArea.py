@@ -35,7 +35,7 @@ class ImageToHtmlArea(object):
                     break
                 l = l - 1
             while u > 0:
-                if self.img_gray[u, left] == 0 or self.img_gray[u, left] !=255 :
+                if self.img_gray[u, left] == 0 or self.img_gray[u, left] != 255 :
                     #print(u)
                     break
                 u = u - 1
@@ -54,6 +54,7 @@ class ImageToHtmlArea(object):
         
     def replacestr(self, info):
         if info:
+            print(info)
             start = info[0:2]
             end = info[2:]
             if "s" in end.lower():
@@ -63,7 +64,6 @@ class ImageToHtmlArea(object):
             if "i" in end.lower():
                 end = end.lower().replace("i","1")
             return start + str(end)
-
 
     def match_img(self):
         #zb = (434, 539)
@@ -80,7 +80,6 @@ class ImageToHtmlArea(object):
         for k, v in self.dictinfo.items():
             #print(k + " " + self.__getzoneinfo(v))
             print('<area alt="" title="%s" href="#" shape="poly" coords="%s" />' % (k, self.__getzoneinfo(v)))
-
 
 if __name__ == "__main__":
     a = ImageToHtmlArea("11.png", "22.png", 0.9)

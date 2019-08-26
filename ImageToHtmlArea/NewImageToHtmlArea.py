@@ -51,7 +51,19 @@ class ImageToHtmlArea(object):
                 d = d + 1
             maplist = ",".join([str(l), str(u), str(l), str(d), str(r), str(d), str(r), str(u)])
             return maplist
-            
+        
+    def replacestr(self, info):
+        if info:
+            start = info[0:2]
+            end = info[2:]
+            if "s" in end.lower():
+                end = end.lower().replace("s","5")
+            if "o" in end.lower():
+                end = end.lower().replace("o","0")
+            if "i" in end.lower():
+                end = end.lower().replace("i","1")
+            return start + str(end)
+
 
     def match_img(self):
         #zb = (434, 539)
@@ -59,8 +71,8 @@ class ImageToHtmlArea(object):
         res = cv2.matchTemplate(self.img_gray, self.template,cv2.TM_CCOEFF_NORMED)
         loc = np.where( res >= self.threshold)
         for pt in zip(*loc[::-1]):
-            getstrinfo = self.__getstr(pt)
-            if getstrinfo[0:4] not in self.dictinfo: # and getstrinfo[2].isdigit():
+            getstrinfo = self.replacestr(self.__getstr(pt))
+            if getstrinfo[0:4] not in self.dictinfo:
                 self.dictinfo[getstrinfo[0:4]] = pt
         #print(self.dictinfo)
     

@@ -2,11 +2,12 @@
 #coding:utf-8
 #code by struggle
 
+import sys
 import cv2
 import numpy as np
 import pytesseract
 from PIL import Image
-import sys
+
 
 class ImageToHtmlArea(object):
     def __init__(self, image, target_image, value):
@@ -21,7 +22,7 @@ class ImageToHtmlArea(object):
     def __getstr(self,info):
             if info:
                 tmp_image = self.img_gray[info[1]:info[1]+ self.h, info[0]:info[0] + self.w + self.w]
-                cv2.imwrite("tmp.png",tmp_image)
+                cv2.imwrite("tmp.png", tmp_image)
                 tmp_image = cv2.imread("tmp.png")
                 text = pytesseract.image_to_string(tmp_image, config='--psm 7')
                 return text
@@ -48,14 +49,14 @@ class ImageToHtmlArea(object):
                     #print(d)
                     break
                 d = d + 1
-            maplist = ",".join([str(l),str(u),str(l),str(d),str(r),str(d),str(r),str(u)])
+            maplist = ",".join([str(l), str(u), str(l), str(d), str(r), str(d), str(r), str(u)])
             return maplist
             
 
     def match_img(self):
         #zb = (434, 539)
         #print(self.__getstr(zb))
-        res = cv2.matchTemplate(self.img_gray,self.template,cv2.TM_CCOEFF_NORMED)
+        res = cv2.matchTemplate(self.img_gray, self.template,cv2.TM_CCOEFF_NORMED)
         loc = np.where( res >= self.threshold)
         for pt in zip(*loc[::-1]):
             getstrinfo = self.__getstr(pt)

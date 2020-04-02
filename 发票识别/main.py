@@ -42,8 +42,8 @@ def walk_files(path):
 
 if __name__ == "__main__":
     mypath = os.getcwd()
-    allfile = walk_files(mypath+"/d_image")
-    t_file = ['t.png', 't2.png','t3.png','t4.png','t5.png','t6.png','t7.png','t8.png','t9.png']
+    allfile = walk_files(mypath + "/d_image")
+    t_file = ['t.png', 't2.png', 't3.png', 't4.png', 't5.png', 't6.png', 't7.png', 't8.png', 't9.png']
     f = {}
     print(allfile)
     for i in allfile:
@@ -58,9 +58,9 @@ if __name__ == "__main__":
                 if p:
                     if p not in f:
                         f[p] = 0
-                        os.rename(mypath + "/d_image/"+ i, mypath + "/d_image/"+ str(p.replace('|','').replace(' ',''))+".jpg")
+                        os.rename(mypath + "/d_image/"+ i, mypath + "/d_image/" + str(p.replace('|','').replace(' ','')) + ".jpg")
                     else:
                         f[p] = f[p] + 1
-                        os.rename(mypath + "/d_image/"+ i, mypath + "/d_image/"+ str(p.replace('|','').replace(' ',''))+"("+ str(f[p] + 1) +")"+".jpg")
+                        os.rename(mypath + "/d_image/"+ i, mypath + "/d_image/" + str(p.replace('|','').replace(' ','')) + "(" + str(f[p] + 1) +")" + ".jpg")
         except:
             print("error")
